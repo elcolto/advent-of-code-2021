@@ -1,15 +1,16 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
-    }
+    fun countIncreases(input: List<Int>) = input.zipWithNext().count { (a, b) -> a < b }
+
+    fun part1(input: List<String>): Int = countIncreases(input.map { it.toInt() })
 
     fun part2(input: List<String>): Int {
-        return input.size
+        return countIncreases(input.map { it.toInt() }.windowed(3).map { it.sum() })
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    check(part1(testInput) == 7)
+    check(part2(testInput) == 5)
 
     val input = readInput("Day01")
     println(part1(input))
